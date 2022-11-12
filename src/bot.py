@@ -21,11 +21,11 @@ class Bot(Client):
             command = parse_command(message)
             
             if command.type == CommandType.GREET:
-                print("GREET")
+                print("Executing Command: GREET")
                 await message.channel.send(command.text)
 
             if command.type == CommandType.ANNOY:
-                print("ANNOY")
+                print("Excuting Command: ANNOY")
                 await message.channel.send(command.text)   
 
         # if author == 'Zeke':
