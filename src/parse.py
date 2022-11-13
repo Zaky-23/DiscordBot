@@ -34,6 +34,14 @@ def parse_command(message) -> Command:
         #TODO do somthing i forgot
         return Command.greet('')
 
+    if command == '9olo':
+        target = str(arguments[0])
+        phrase = ' '.join(arguments[1:])
+        return Command.say(target, phrase)
+
+    if command == 'gj':
+        return Command.cute()
+
 def commmand_exists(command : str) -> bool:
     for cmd in COMMAND_LIST:
         if command == cmd:

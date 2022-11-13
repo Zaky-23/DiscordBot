@@ -29,7 +29,9 @@ class CommandType:
 COMMAND_LIST = (
     'annoy',
     'wesh',
-    'stop'
+    'stop',
+    '9olo',
+    'gj'
 )
 
 class Command:
@@ -63,6 +65,15 @@ class Command:
             command_type=CommandType.NEUTRAL,
             execute=True, target=target_id, text='ye')
 
+    def say(target_id: int, phrase: str) -> any:
+        return Command(
+            command_type=CommandType.ANNOY,
+            execute=True, target=target_id, text=f'{phrase} {target_id}')
+
+    def cute() -> any:
+        return Command(
+            command_type=CommandType.NEUTRAL,
+            execute=True, target=0, text='UwU')
     #TODO add a database containing a few phrases
     #then make a word randomizer that picks
     #dialogue

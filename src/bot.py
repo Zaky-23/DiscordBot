@@ -32,13 +32,6 @@ class Bot(Client):
 
         if content.startswith('!'):
             command = parse_command(message)
-        
-            self.update_info(command)
-            await self.be_annoying(command, message)
-            try:
-                print(command.target == message.author.id)
-            except:
-                print(0)
 
             print(f'Executing Command {command.type}')
             await message.channel.send(command.text)
