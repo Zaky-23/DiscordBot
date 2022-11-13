@@ -15,18 +15,15 @@ class Bot(Client):
         content = str(message.content)
         channel = str(message.channel)
         user_id = str(message.author.id)
-        print(f'Message from: {author}\nContent: {content}\nChannel: {channel}\nID: {user_id}\n')
+        print(f'Message from: {author}\nContent: {content}\nChannel: {channel}\nID: {user_id}')
 
         if content.startswith('!'):
             command = parse_command(message)
             
-            if command.type == CommandType.GREET:
-                print("Executing Command: GREET")
-                await message.channel.send(command.text)
+            print(f'Executing Command {command.type}')
 
-            if command.type == CommandType.ANNOY:
-                print("Excuting Command: ANNOY")
-                await message.channel.send(command.text)   
+            await message.channel.send(command.text)
+            return
 
         # if author == 'Zeke':
         #     if message.content.startswith('!wlido'):

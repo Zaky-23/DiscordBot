@@ -3,26 +3,37 @@ from command import Command, CommandType, COMMAND_LIST
 def parse_command(message) -> Command:
 
     tokens = str(message.content).split(' ')
-    command = tokens[1:2]
-    arguments = tokens[2:]
+    try:
+        command = tokens[1].lower()
+    except IndexError: 
+        print(f'{__file__} command: OutOfBoundaryIndex')
+        return Command.neutral('')
+    arguments = tokens[2:]        
 
-    if command is None:
-        return Command.greet()
-
-    if commmand_exists(command[0]) == False:
-        print(f'Command {command[0]} does not exist')
+    if commmand_exists(command) == False:
+        print(f'Command "{command}" does not exist')
         return Command.empty()
 
-    if command[0] == 'annoy':
+    if command == 'annoy':
         try:
             target_id = str(arguments[0])
-        except:
+            return Command.annoy(target_id)
+        except IndexError: 
             print('OutOfBoundaryIndex')
-            target_id = ''
+            return Command(CommandType.ANNOY, 
+            True, '', "chkon lazem n9ela9?")
 
-        return Command.annoy(target_id)
+    if command == 'stop':
+        return Command(
+            CommandType.STOP,
+            True, '', 'ok')
+    
+    if command == 'wesh':
+        #TODO do somthing i forgot
+        return Command.greet('')
 
 def commmand_exists(command : str) -> bool:
-    if(command == 'annoy'):
-        return True
+    for cmd in COMMAND_LIST:
+        if command == cmd:
+            return True
     return False
