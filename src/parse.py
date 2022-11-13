@@ -1,5 +1,7 @@
 from command import Command, CommandType, COMMAND_LIST
 
+S = ' !"#$%&\'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~'
+
 def parse_command(message) -> Command:
 
     tokens = str(message.content).split(' ')
@@ -16,8 +18,8 @@ def parse_command(message) -> Command:
 
     if command == 'annoy':
         try:
-            target_id = str(arguments[0])
-            return Command.annoy(target_id)
+            target_id = str(arguments[0]).strip(S)
+            return Command.annoy(int(target_id))
         except IndexError: 
             print('OutOfBoundaryIndex')
             return Command(CommandType.ANNOY, 
@@ -26,7 +28,7 @@ def parse_command(message) -> Command:
     if command == 'stop':
         return Command(
             CommandType.STOP,
-            True, '', 'ok')
+            False, '', 'ok')
     
     if command == 'wesh':
         #TODO do somthing i forgot

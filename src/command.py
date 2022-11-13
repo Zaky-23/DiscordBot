@@ -28,11 +28,12 @@ class CommandType:
 
 COMMAND_LIST = (
     'annoy',
-    'wesh'
+    'wesh',
+    'stop'
 )
 
 class Command:
-    def __init__(self, command_type: CommandType, execute: bool, target: str, text: str) -> None:
+    def __init__(self, command_type: CommandType, execute: bool, target: int, text: str) -> None:
         self.type = CommandType.to_str(command_type)
         self.execute = execute
         self.target = target
@@ -45,19 +46,19 @@ class Command:
         execute=False, target='', text='')
 
     @staticmethod
-    def greet(target_id: str) -> any:
+    def greet(target_id: int) -> any:
         return Command(
         command_type=CommandType.GREET,
         execute=True, target=target_id, text='cv kho na7amdo rabi ou nechekrouh')
     
     @staticmethod
-    def annoy(target_id: str) -> any:
+    def annoy(target_id: int) -> any:
         return Command(
         command_type=CommandType.ANNOY,
-        execute=True, target=target_id, text='thared :man_shrugging:')
+        execute=True, target=target_id, text=f'thared :man_shrugging: <@{target_id}>')
     
     @staticmethod
-    def neutral(target_id) -> any:
+    def neutral(target_id: int) -> any:
         return Command(
             command_type=CommandType.NEUTRAL,
             execute=True, target=target_id, text='ye')

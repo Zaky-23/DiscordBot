@@ -3,6 +3,19 @@ from parse import parse_command
 from command import Command, CommandType
 
 class Bot(Client):
+    def update_info(self, command):
+        self.current_target = command.target
+        print(f'current_target: {self.current_target}' )
+        self.execute = command.execute
+    
+    async def be_annoying(self, command, message):
+        if not command.execute:
+            return
+        if message.author.id == self.current_target:
+            command = Command.annoy(self.current_target)
+            await message.channel.send(command.text)
+            return
+
     async def on_ready(self):
         myName = str(self.user).split('#')[0]
         print(f'Hello I\'m {myName}')
@@ -19,9 +32,15 @@ class Bot(Client):
 
         if content.startswith('!'):
             command = parse_command(message)
-            
-            print(f'Executing Command {command.type}')
+        
+            self.update_info(command)
+            await self.be_annoying(command, message)
+            try:
+                print(command.target == message.author.id)
+            except:
+                print(0)
 
+            print(f'Executing Command {command.type}')
             await message.channel.send(command.text)
             return
 
